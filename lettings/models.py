@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinLengthValidator
-from django.contrib.auth.models import User
 
 
 class Address(models.Model):
@@ -12,6 +11,7 @@ class Address(models.Model):
     country_iso_code = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
 
     class Meta:
+        verbose_name = "address"
         verbose_name_plural = "addresses"
 
     def __str__(self):
@@ -23,18 +23,8 @@ class Letting(models.Model):
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
 
     class Meta:
+        verbose_name = "letting"
         verbose_name_plural = "lettings"
 
     def __str__(self):
         return self.title
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    favorite_city = models.CharField(max_length=64, blank=True)
-
-    class Meta:
-        verbose_name_plural = "profiles"
-
-    def __str__(self):
-        return self.user.username
