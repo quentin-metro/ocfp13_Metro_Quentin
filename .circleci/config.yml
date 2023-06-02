@@ -13,11 +13,6 @@ jobs:
   build-and-test: 
     docker:
       - image: cimg/python:3.10.2
-    # Checkout the code as the first step. This is a dedicated CircleCI step.
-    # The python orb's install-packages step will install the dependencies from a Pipfile via Pipenv by default.
-    # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
-    # Then run your tests!
-    # CircleCI will report the results back to your VCS provider.
     steps:
       - checkout # Setup environnement + install dependecies
       - python/install-packages:
@@ -25,6 +20,9 @@ jobs:
       - run:
           name: Run tests
           command: pytest
+      - run:
+          name: linting
+          command: flake8
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
