@@ -31,3 +31,9 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
+      #- deploy:
+            #requires:
+              #- build-and-test # wait for build-and-test job to complete successfully before starting
+            #filters:
+              #branches:
+                #only: master # on the branch master only
