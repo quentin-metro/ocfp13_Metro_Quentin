@@ -16,6 +16,6 @@ def profiles_index(request):
 # Sed tincidunt, dolor id facilisis fringilla, eros leo tristique lacus, it.
 # Nam aliquam dignissim congue. Pellentesque habitant morbi tristique senectus et netus et males
 def profile(request, username):
-    profile = Profile.objects.get(user__username=username)
-    context = {'profile': profile}
+    user_profile = Profile.objects.get(user__username=username)
+    context = {'profile': user_profile}
     return render(request, 'profiles/profile.html', context)
