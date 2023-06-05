@@ -40,8 +40,9 @@ jobs:
     steps:
       - checkout
       - run: |
-          az acr import --name ocfp13 --source docker.io/quentinmetro/ocfp13:$TAG --image quentinmetro/ocfp13:$TAG --username $DOCKER_USER --password $DOCKER_PASS
-  
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          docker login -u $DOCKER_USER -p $DOCKER_PASS ocfp13.azurecr.io
+          docker push ocfp13.azurecr.io/ocfp13:$TAG
 
 # Invoke jobs via workflows
 workflows:
