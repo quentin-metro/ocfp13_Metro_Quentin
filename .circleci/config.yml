@@ -34,6 +34,13 @@ jobs:
           docker logout
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker push quentinmetro/ocfp13:$TAG
+  deploy:
+    docker:
+      - image: cimg/python:3.10.2
+    steps:
+      - checkout
+      - run: |
+          az acr import --name ocfp13 --source docker.io/quentinmetro/ocfp13:$TAG --image quentinmetro/ocfp13:$TAG --username $DOCKER_USER --password $DOCKER_PASS
   
 
 # Invoke jobs via workflows
@@ -44,12 +51,7 @@ workflows:
       - containerize:
             requires:
               - build--test-linting # wait for build--test-linting job to complete successfully before starting
-      - azure-acr/build-and-push-image:
-            dockerfile: Dockerfile
-            path: .
-            login-server-name: ocfp13.azure.io
-            registry-name: ocfp13
-            repo: ocfp13
+      - deploy:
             requires:
               - build--test-linting
               - containerize
