@@ -39,9 +39,12 @@ jobs:
       - image: cimg/python:3.10.2
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-          az acr login --name ocfp13 --expose-token
+          az acr login --name ocfp13
           docker login -u $DOCKER_USER -p $DOCKER_PASS ocfp13.azurecr.io
           docker push ocfp13.azurecr.io/ocfp13:$TAG
 
