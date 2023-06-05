@@ -29,9 +29,8 @@ jobs:
       # build and push Docker image
       - run: |
           TAG=$(git rev-parse --short HEAD)
-          docker build -t quentinmetro/oc-lettings-site .
-          docker tag $TAG quentinmetro/oc-lettings-site
-          docker push quentinmetro/oc-lettings-site:$TAG
+          docker build -t quentinmetro/ocfp13:$TAG .
+          docker push quentinmetro/ocfp13:$TAG
   
 
 # Invoke jobs via workflows
