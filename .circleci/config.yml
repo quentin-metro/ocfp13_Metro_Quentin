@@ -30,6 +30,7 @@ jobs:
       - run: |
           TAG=$(git rev-parse --short HEAD)
           docker build -t quentinmetro/ocfp13:$TAG .
+          docker logout
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker push quentinmetro/ocfp13:$TAG
   
