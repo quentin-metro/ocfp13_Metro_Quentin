@@ -44,6 +44,7 @@ jobs:
           docker_layer_caching: true
       - run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          az login
           az acr login --name ocfp13
           docker login -u $DOCKER_USER -p $DOCKER_PASS ocfp13.azurecr.io
           docker push ocfp13.azurecr.io/ocfp13:$TAG
