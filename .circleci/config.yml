@@ -46,7 +46,11 @@ jobs:
           TAG=$(git rev-parse --short HEAD)
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker pull quentinmetro/ocfp13:$TAG
-          docker image ls
+          docker logout
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          docker login -u $AZURE_USER -p $AZURE_PASS ocfp13.azurecr.io
+          docker tag ocfp13 ocfp13.azurecr.io/ocfp13:$TAG
+          docker push ocfp13.azurecr.io/ocfp13:$TAG
 
 # Invoke jobs via workflows
 workflows:
