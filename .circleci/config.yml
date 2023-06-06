@@ -45,7 +45,7 @@ jobs:
       - run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
           docker login -u $AZURE_USER -p $AZURE_PASS ocfp13.azurecr.io
-          docker push ocfp13.azurecr.io/ocfp13:$TAG
+          docker push ocfp13.azurecr.io/quentinmetro/ocfp13:$TAG
 
 # Invoke jobs via workflows
 workflows:
