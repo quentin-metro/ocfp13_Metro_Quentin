@@ -51,8 +51,7 @@ jobs:
           docker login -u $AZURE_USER -p $AZURE_PASS ocfp13.azurecr.io
           docker tag quentinmetro/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:$TAG
           docker push ocfp13.azurecr.io/ocfp13:$TAG
-          curl https://$ocfp13-lettings-site:BsmPsrr0mcKFMks9XBtyceTpDqYHjins5ZhzkrAiAdu4mmPDZizw4RJEW9tR@ocfp13-lettings-site.scm.azurewebsites.net/api/registry/webhook -H "" -d ""
-
+          curl -X POST curl "https://$ocfp13-lettings-site:BsmPsrr0mcKFMks9XBtyceTpDqYHjins5ZhzkrAiAdu4mmPDZizw4RJEW9tR@ocfp13-lettings-site.scm.azurewebsites.net/api/registry/webhook" -d -H
 
 # Invoke jobs via workflows
 workflows:
