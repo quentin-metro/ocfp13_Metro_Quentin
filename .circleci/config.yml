@@ -51,7 +51,7 @@ jobs:
           docker login -u $AZURE_USER -p $AZURE_PASS ocfp13.azurecr.io
           docker tag quentinmetro/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:$TAG
           docker tag ocfp13.azurecr.io/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:lastest
-          docker push --all-tags ocfp13.azurecr.io/ocfp13:lastest
+          docker push --all-tags ocfp13.azurecr.io/ocfp13
 
 
 # Invoke jobs via workflows
