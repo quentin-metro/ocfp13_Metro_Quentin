@@ -51,7 +51,7 @@ jobs:
           docker login -u $AZURE_USER -p $AZURE_PASS ocfp13.azurecr.io
           docker tag quentinmetro/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:$TAG
           docker push ocfp13.azurecr.io/ocfp13:$TAG
-          az login --identity --username ec640edd-c6fd-4a7b-b37b-fe26ffbc3f04
+          sudo az login --identity --username ec640edd-c6fd-4a7b-b37b-fe26ffbc3f04
           az webapp config container set --name ocfp13-lettings-site --resource-group ocfp13 --docker-custom-image-name ocfp13:$TAG 
 
 
