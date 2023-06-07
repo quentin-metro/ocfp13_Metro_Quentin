@@ -50,8 +50,8 @@ jobs:
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
           docker login -u $AZURE_USER -p $AZURE_PASS ocfp13.azurecr.io
           docker tag quentinmetro/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:$TAG
-          docker tag ocfp13.azurecr.io/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:lastest
-          docker push --all-tags ocfp13.azurecr.io/ocfp13
+          docker push ocfp13.azurecr.io/ocfp13:$TAG
+          curl https://$ocfp13-lettings-site:BsmPsrr0mcKFMks9XBtyceTpDqYHjins5ZhzkrAiAdu4mmPDZizw4RJEW9tR@ocfp13-lettings-site.scm.azurewebsites.net/api/registry/webhook -H "" -d ""
 
 
 # Invoke jobs via workflows
