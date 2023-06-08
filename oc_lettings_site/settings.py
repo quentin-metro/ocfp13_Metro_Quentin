@@ -8,12 +8,17 @@ env = environ.Env()
 environ.Env.read_env()
 
 
-def filter_transactions(event, hint):
-    url_string = event["request"]["url"]
-    # Exclude azure healthcheck from showing in sentry errors log
-    if "/robots933456.txt" in url_string:
-        return None
-    return event
+def sampler(sampling_context) -> any:
+    # Examine provided context data (including parent decision, if any)
+    # along with anything in the global namespace to compute the sample rate
+    # or sampling decision for this transaction
+
+    if sampling_context.transaction_context == 'GET/robots933456.txt':
+        # These are important - take a big sample
+        return 0
+    else:
+        # Default sample rate
+        return 1
 
 
 sentry_sdk.init(
@@ -25,7 +30,7 @@ sentry_sdk.init(
     # django.contrib.auth).
     send_default_pii=True,
 
-    before_send_transaction=filter_transactions,
+    traces_sampler=sampler,
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
