@@ -7,18 +7,27 @@ env = environ.Env()
 # reading .env file
 environ.Env.read_env()
 
+
+def filter_transactions(event, hint):
+    url_string = event["request"]["url"]
+    # Exclude azure healthcheck from showing in sentry errors log
+    if "/robots933456.txt" in url_string:
+        return None
+    return event
+
+
 sentry_sdk.init(
     dsn=env("SENTRY_DSN"),
     integrations=[DjangoIntegration()],
 
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    traces_sample_rate=1.0,
 
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth).
-    send_default_pii=True
+    send_default_pii=True,
+
+    before_send_transaction=filter_transactions,
 )
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
