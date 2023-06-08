@@ -51,6 +51,8 @@ jobs:
           docker login -u $AZURE_USER -p $AZURE_PASS ocfp13.azurecr.io
           docker tag quentinmetro/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:$TAG
           docker push ocfp13.azurecr.io/ocfp13:$TAG
+          docker tag ocfp13.azurecr.io/ocfp13:$TAG ocfp13.azurecr.io/ocfp13:latest
+          docker push ocfp13.azurecr.io/ocfp13:latest
 
 # Invoke jobs via workflows
 workflows:
@@ -60,10 +62,13 @@ workflows:
       - containerize:
             requires:
               - build--test-linting # wait for build--test-linting job to complete successfully before starting
+            filters:
+                branches:
+                    only: main # on the branch main only
       - deploy:
             requires:
               - build--test-linting
               - containerize
             filters:
-              branches:
-                only: main # on the branch main only
+                branches:
+                    only: main # on the branch main only
