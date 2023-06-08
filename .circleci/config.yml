@@ -62,7 +62,13 @@ workflows:
       - containerize:
             requires:
               - build--test-linting # wait for build--test-linting job to complete successfully before starting
+            filters:
+                branches:
+                    only: main # on the branch main only
       - deploy:
             requires:
               - build--test-linting
               - containerize
+            filters:
+                branches:
+                    only: main # on the branch main only
