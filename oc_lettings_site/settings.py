@@ -13,10 +13,9 @@ def sampler(sampling_context) -> any:
     # along with anything in the global namespace to compute the sample rate
     # or sampling decision for this transaction
 
-    if sampling_context.get("request"):
-        request_route = sampling_context["request"]
-        if '/robots933456.txt' in request_route:
-            return 0
+    if sampling_context['transaction']['name'] == '/robots933456.txt':
+        # These are important - take a big sample
+        return 0
     else:
         # Default sample rate
         return 1
@@ -26,10 +25,11 @@ sentry_sdk.init(
     dsn=env("SENTRY_DSN"),
     integrations=[DjangoIntegration()],
 
-    traces_sampler=sampler,
+
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth).
     send_default_pii=True,
+    traces_sampler=sampler,
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
