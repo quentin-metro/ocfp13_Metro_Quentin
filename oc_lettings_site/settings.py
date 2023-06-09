@@ -13,7 +13,7 @@ def sampler(sampling_context) -> any:
     # along with anything in the global namespace to compute the sample rate
     # or sampling decision for this transaction
 
-    if 'GET /robots933456.txt' in sampling_context['request']:
+    if sampling_context['transaction_context'] == 'GET/ robots933456.txt':
         # These are important - take a big sample
         return 0
     else:
@@ -51,13 +51,13 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 # Application definition
 
 INSTALLED_APPS = [
-    'oc_lettings_site.apps.OCLettingsSiteConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oc_lettings_site.apps.OCLettingsSiteConfig',
     'lettings',
     'profiles'
 ]
