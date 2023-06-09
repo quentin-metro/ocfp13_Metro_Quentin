@@ -13,7 +13,7 @@ def sampler(sampling_context) -> any:
     # along with anything in the global namespace to compute the sample rate
     # or sampling decision for this transaction
 
-    if sampling_context['transaction_context']['name'] == 'GET /robots933456.txt':
+    if sampling_context['transaction_context']['name'] == '/robots933456.txt':
         # These are important - take a big sample
         return 0
     else:
