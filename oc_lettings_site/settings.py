@@ -14,7 +14,7 @@ def sampler(sampling_context) -> any:
     # or sampling decision for this transaction
 
     if 'transaction' in sampling_context:
-        if sampling_context['transaction'] == '/robots933456.txt':
+        if sampling_context['transaction']['name'] == '/robots933456.txt':
             return 0
     elif 'transaction_context' in sampling_context:
         if 'name' in sampling_context['transaction_context']:
