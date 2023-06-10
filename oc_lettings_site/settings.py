@@ -17,6 +17,10 @@ def sampler(sampling_context) -> any:
         if 'name' in sampling_context['transaction']:
             if sampling_context['transaction']['name'] == '/robots933456.txt':
                 return 0
+    elif 'transaction_context' in sampling_context:
+        if 'name' in sampling_context['transaction_context']:
+            if sampling_context['transaction_context']['name'] == '/robots933456.txt':
+                return 0
     # Default sample rate
     return 1
 
