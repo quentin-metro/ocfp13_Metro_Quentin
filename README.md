@@ -75,3 +75,36 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Le déploiement du site sur Azure demande de remplir plusieurs critères :
+Avoir un compte azure (fonctionne avec un compte gratuit)
+  - Avoir un registre de conteneur
+  - Avoir une App services
+Avoir un compte Sentry ("créer project" et suivre instruction)
+Avoir un compte CircleCI (et un fichier `config.yml` opérationnel)
+Avoir un compte Docker (et un fichier `Dockerfile` opérationnel)
+  - Avoir un repository
+Effectuer un pipeline sur CircleCI :
+  - Etre membre autorisé du pipeline sur projet pour ce repo
+  - Configurer les variables d'environnement localement :
+    - SECRET_KEY : la clé d'encodage de Django
+    - ALLOWED_HOSTS : 'localhost,0.0.0.0,127.0.0.1,ocfp13-lettings-site.azurewebsites.net'
+    - SENTRY_DSN : Pour avoir une surveillance des données depuis Sentry
+    - Inscrit dans un `.env` à proximité de `setting.py` (suivre `.env.exemple`)
+    
+  - Configurer les variables d'environnement sur CircleCi :
+    - DOCKER_PASS : Identifiant Docker
+    - DOCKER_USER : Identifiant Docker
+    - AZURE_USER : Identifiant Azure (Registre de conteneur | Clés d'accès)
+    - AZURE_PASS : Identifiant Azure (Registre de conteneur | Clés d'accès)
+    - SENTRY_DSN : Pour avoir une surveillance des données depuis Sentry
+    - SECRET_KEY : la clé d'encodage de Django
+    - ALLOWED_HOSTS : 'localhost,0.0.0.0,127.0.0.1,ocfp13-lettings-site.azurewebsites.net'
+
+  - Configurer les variables d'environnement sur Azure :
+    - WEBSITES_PORT : port doit correspondre au Dockerfile (app services -> configuration)
+    - SENTRY_DSN : Pour avoir une surveillance des données depuis Sentry
+    - SECRET_KEY : la clé d'encodage de Django
+    - ALLOWED_HOSTS : 'localhost,0.0.0.0,127.0.0.1,ocfp13-lettings-site.azurewebsites.net'
+
+Push sur la branche `main` pour déploiement.
