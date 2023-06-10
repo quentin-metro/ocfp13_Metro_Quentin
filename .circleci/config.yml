@@ -27,6 +27,7 @@ jobs:
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
+      - run: python manage.py collectstatic
       # build and push Docker image
       - run: |
           TAG=$(git rev-parse --short HEAD)
