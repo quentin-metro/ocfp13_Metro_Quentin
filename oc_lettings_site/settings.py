@@ -33,6 +33,12 @@ def filter_transaction(event, hint):
     if parsed_url.path == "/robots933456.txt":
         return None
 
+    for tag in event["tags"]:
+        if tag[0] == "transaction" and tag[1] == "/robots933456.txt":
+            return None
+    # if event["culprit"] == "/robots933456.txt":
+        # return None
+
     return event
 
 
@@ -44,6 +50,8 @@ sentry_sdk.init(
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth).
     send_default_pii=True,
+
+    traces_sample_rate=1,
     # traces_sampler=sampler,
     before_send_transaction=filter_transaction
 )
