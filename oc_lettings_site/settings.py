@@ -26,23 +26,7 @@ def sampler(sampling_context) -> any:
     return 1
 
 
-def filter_transaction(event, hint):
-    url_string = event["request"]["url"]
-    parsed_url = urlparse(url_string)
 
-    if parsed_url.path == "/robots933456.txt":
-        return None
-
-    for tag in event["tags"]:
-        if tag[0] == "transaction" and tag[1] == "/robots933456.txt":
-            return None
-    if event["culprit"] == "/robots933456.txt":
-        return None
-    if event["transaction"] == "/robots933456.txt":
-        return None
-    if event["extra"]["request"] == "<WSGIRequest: GET \'/robots933456.txt\'>":
-        return None
-    return event
 
 
 def filter_event(event, hint):
@@ -76,7 +60,6 @@ sentry_sdk.init(
     traces_sample_rate=1,
     # traces_sampler=sampler,
     before_send=filter_event,
-    before_send_transaction=filter_transaction,
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
