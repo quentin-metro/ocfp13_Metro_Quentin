@@ -2,6 +2,7 @@ import os
 import environ
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from urllib.parse import urlparse
 
 env = environ.Env()
 # reading .env file
@@ -26,8 +27,10 @@ def sampler(sampling_context) -> any:
 
 
 def filter_transaction(event, hint):
+    url_string = event["request"]["url"]
+    parsed_url = urlparse(url_string)
 
-    if event["transaction"] == "/robots933456.txt":
+    if parsed_url.path == "/robots933456.txt":
         return None
 
     return event
