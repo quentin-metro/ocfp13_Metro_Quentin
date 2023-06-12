@@ -2,7 +2,6 @@ import os
 import environ
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from urllib.parse import urlparse
 
 env = environ.Env()
 # reading .env file
