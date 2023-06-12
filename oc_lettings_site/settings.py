@@ -9,23 +9,6 @@ env = environ.Env()
 environ.Env.read_env()
 
 
-def sampler(sampling_context) -> any:
-    # Examine provided context data (including parent decision, if any)
-    # along with anything in the global namespace to compute the sample rate
-    # or sampling decision for this transaction
-
-    '''
-    if sampling_context['transaction']['name'] == '/robots933456.txt':
-        return 0
-    '''
-    if 'transaction_context' in sampling_context:
-        if 'name' in sampling_context['transaction_context']:
-            if sampling_context['transaction_context']['name'] == '/robots933456.txt':
-                return 0
-    # Default sample rate
-    return 1
-
-
 def filter_event(event, hint):
     url_string = event["request"]["url"]
     parsed_url = urlparse(url_string)
@@ -33,15 +16,6 @@ def filter_event(event, hint):
     if parsed_url.path == "/robots933456.txt":
         return None
 
-    for tag in event["tags"]:
-        if tag[0] == "transaction" and tag[1] == "/robots933456.txt":
-            return None
-    if event["culprit"] == "/robots933456.txt":
-        return None
-    if event["transaction"] == "/robots933456.txt":
-        return None
-    if event["extra"]["request"] == "<WSGIRequest: GET \'/robots933456.txt\'>":
-        return None
     return event
 
 
@@ -55,7 +29,6 @@ sentry_sdk.init(
     send_default_pii=True,
 
     traces_sample_rate=1,
-    # traces_sampler=sampler,
     before_send=filter_event,
 )
 
