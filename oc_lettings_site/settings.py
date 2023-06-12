@@ -13,10 +13,11 @@ def sampler(sampling_context) -> any:
     # along with anything in the global namespace to compute the sample rate
     # or sampling decision for this transaction
 
-    if 'transaction' in sampling_context:
-        if sampling_context['transaction']['name'] == '/robots933456.txt':
-            return 0
-    elif 'transaction_context' in sampling_context:
+    '''
+    if sampling_context['transaction']['name'] == '/robots933456.txt':
+        return 0
+    '''
+    if 'transaction_context' in sampling_context:
         if 'name' in sampling_context['transaction_context']:
             if sampling_context['transaction_context']['name'] == '/robots933456.txt':
                 return 0
