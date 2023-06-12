@@ -26,9 +26,6 @@ def sampler(sampling_context) -> any:
     return 1
 
 
-
-
-
 def filter_event(event, hint):
     url_string = event["request"]["url"]
     parsed_url = urlparse(url_string)
