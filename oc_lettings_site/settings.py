@@ -10,11 +10,14 @@ environ.Env.read_env()
 
 
 def filter_event(event, hint):
-    url_string = event["request"]["url"]
-    parsed_url = urlparse(url_string)
+    if event["request"]:
+        if event["request"]["url"]:
+            url_string = event["request"]["url"]
+            parsed_url = urlparse(url_string)
 
-    if parsed_url.path == "/robots933456.txt":
-        return None
+            # ignore azure healthcare ping error(it's normal)
+            if parsed_url.path == "/robots933456.txt":
+                return None
 
     return event
 
