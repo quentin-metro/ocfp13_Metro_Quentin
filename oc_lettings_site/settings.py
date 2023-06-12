@@ -38,7 +38,8 @@ def filter_transaction(event, hint):
             return None
     if event["culprit"] == "/robots933456.txt":
         return None
-
+    if event["extra"]["request"] == "<WSGIRequest: GET \'/robots933456.txt\'>":
+        return None
     return event
 
 
