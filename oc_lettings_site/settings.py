@@ -38,9 +38,14 @@ def filter_transaction(event, hint):
             return None
     if event["culprit"] == "/robots933456.txt":
         return None
+    if event["transaction"] == "/robots933456.txt":
+        return None
     if event["extra"]["request"] == "<WSGIRequest: GET \'/robots933456.txt\'>":
         return None
     return event
+
+# def filter_event(event, hint):
+    # return event
 
 
 sentry_sdk.init(
@@ -54,7 +59,8 @@ sentry_sdk.init(
 
     traces_sample_rate=1,
     # traces_sampler=sampler,
-    before_send_transaction=filter_transaction
+    before_send=filter_event,
+    before_send_transaction=filter_transaction,
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
