@@ -36,8 +36,8 @@ def filter_transaction(event, hint):
     for tag in event["tags"]:
         if tag[0] == "transaction" and tag[1] == "/robots933456.txt":
             return None
-    # if event["culprit"] == "/robots933456.txt":
-        # return None
+    if event["culprit"] == "/robots933456.txt":
+        return None
 
     return event
 
