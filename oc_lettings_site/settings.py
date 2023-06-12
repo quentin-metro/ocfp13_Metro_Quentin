@@ -2,6 +2,7 @@ import os
 import environ
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from urllib.parse import urlparse
 
 env = environ.Env()
 # reading .env file
@@ -17,11 +18,20 @@ def sampler(sampling_context) -> any:
     if sampling_context['transaction']['name'] == '/robots933456.txt':
         return 0
     '''
-    if sampling_context["environment"] == "production":
-        if sampling_context["culprit"] == "/robots933456.txt":
-            return 0
+    if 'transaction_context' in sampling_context:
+        if 'name' in sampling_context['transaction_context']:
+            if sampling_context['transaction_context']['name'] == '/robots933456.txt':
+                return 0
     # Default sample rate
     return 1
+
+
+def filter_transaction(event, hint):
+
+    if event["transaction"] == "/robots933456.txt":
+        return None
+
+    return event
 
 
 sentry_sdk.init(
@@ -32,7 +42,8 @@ sentry_sdk.init(
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth).
     send_default_pii=True,
-    traces_sampler=sampler,
+    # traces_sampler=sampler,
+    before_send_transaction=filter_transaction
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
