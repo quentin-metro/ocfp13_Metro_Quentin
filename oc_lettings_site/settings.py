@@ -59,7 +59,7 @@ sentry_sdk.init(
 
     traces_sample_rate=1,
     # traces_sampler=sampler,
-    before_send=filter_event,
+    # before_send=filter_event,
     before_send_transaction=filter_transaction,
 )
 
