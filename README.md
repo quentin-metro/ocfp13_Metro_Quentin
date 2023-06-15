@@ -85,7 +85,7 @@ Avoir un compte CircleCI (et un fichier `config.yml` opérationnel)
 Avoir un compte Docker (et un fichier `Dockerfile` opérationnel)
   - Avoir un repository
 Effectuer un pipeline sur CircleCI :
-  - Etre membre autorisé du pipeline sur projet pour ce repo
+  - Être membre autorisé du pipeline sur projet pour ce repo
   - Configurer les variables d'environnement localement :
     - SECRET_KEY : la clé d'encodage de Django
     - ALLOWED_HOSTS : 'localhost,0.0.0.0,127.0.0.1,ocfp13-lettings-site.azurewebsites.net'
@@ -108,3 +108,7 @@ Effectuer un pipeline sur CircleCI :
     - ALLOWED_HOSTS : 'localhost,0.0.0.0,127.0.0.1,ocfp13-lettings-site.azurewebsites.net'
 
 Push sur la branche `main` pour déploiement.
+La progression du déploiement peut être suivie sur CircleCi puis sur Azure (centre de déploiement/journaux).
+
+## Le pipeline CI/CD peut prendre ~5minute à s'effectuer
+## Azure dispose d'une version gratuite, mais nécessite 1 à 2minute d'initialisation supplémentaire apres un déploiement ou si le site dépasse 20 minute d'inactivité

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.conf import urls
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
@@ -12,3 +13,5 @@ urlpatterns = [
     path('', include('lettings.urls')),
     path('', include('profiles.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urls.handler404 = views.error_404
