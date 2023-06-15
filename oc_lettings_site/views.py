@@ -17,6 +17,7 @@ def index(request):
 
 
 def error_404(request, exception):
+    """ Custom 404 error for handling by sentry """
     capture_message("Page not found!", level="error")
 
     # return any response here, e.g.:
